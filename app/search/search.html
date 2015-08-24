@@ -1,0 +1,26 @@
+<div id="searchBar" class="input-group">
+  <form ng-submit="submit()">
+    <div class="row">
+      <div class="col-md-11">
+        <input id="searchText" ng-model="form.search" class="form-control" placeholder="Search for...">
+       </div>
+       <div class="col-md-1">
+         <span class="input-group-btn">
+           <button id="searchButton" class="btn btn-default" type="button">Go!</button>
+         </span>
+       </div>
+    </div>
+  </form>
+  <br />
+  <div id="searchResults">
+    <div class="searchResult" data-ng-repeat="result in results">
+        <div class="well">
+            <span ng-bind-html="boldText(result.data)"></span>
+            <br />
+            <strong>username:</strong> {{ result.username }} - {{ result.timestamp}}
+            <br />
+            <a href="{{ result.location }}">view</a>
+        </div>
+    </div>
+  </div>
+</div><!-- /input-group -->

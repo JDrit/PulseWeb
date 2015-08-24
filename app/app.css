@@ -1,0 +1,17 @@
+/* app css stylesheet */
+
+body {
+    padding-top: 50px;
+}
+
+#searchBar {
+    width: 100%;
+}
+
+#searchText {
+    width: 100%;
+}
+
+#searchButton {
+    width: 100%;
+}
