@@ -11,16 +11,49 @@
        </div>
     </div>
   </form>
-  <br />
-  <div id="searchResults">
-    <div class="searchResult" data-ng-repeat="result in results">
-        <div class="well">
-            <span ng-bind-html="boldText(result.data)"></span>
-            <br />
-            <strong>username:</strong> {{ result.username }} - {{ result.timestamp}}
-            <br />
-            <a href="{{ result.location }}">view</a>
-        </div>
-    </div>
-  </div>
 </div><!-- /input-group -->
+<br />
+<div id="searchResults">
+  <div class="searchResult" data-ng-repeat="result in results">
+    <div class="well">
+        <strong class="pull-left"><a href="{{ result.location }}" ng-bind="getTitle(result)"></a></strong><p class="pull-right">{{ result.timestamp }}</p>
+        <br>
+        <span ng-bind-html="boldText(result.data)"></span>
+        <br />
+        <div class="pull-left">
+            <strong>username:</strong> {{ result.username }}
+            &nbsp; &nbsp; &nbsp;
+            <strong>source:</strong> {{ result.moduleName}}
+        </div>
+        <div class="pull-right">
+            <a ng-href="{{ getRaw(result) }}">get raw</a>
+        </div>
+        <br />
+    </div>
+ </div>
+</div>
+<br />
+<br />
+<em ng-show="numFound != -1">Found {{ numFound }} results</em>
+<br />
+
+<nav ng-show="numFound != -1" style="text-align:center;">
+    <ul class="pagination">
+        <li ng-show="start != 0">
+            <button type="button" class="btn btn-default" aria-label="Previous" ng-click="lastPage()">
+                <span aria-hidden="true">&laquo;</span>
+            </button>
+        </li>
+        <li ng-repeat="page in pageRange(start / limit, numFound / limit, limit)">
+            <button type="button" class="btn btn-default" ng-click="updateSearch(page * limit)">{{page}}</button>
+        </li>
+        <li ng-show="extendedPage == true">
+            <button type="button" class="btn btn-default" aria-label="Next" ng-click="nextPage()">
+                <span aria-hidden="true">&raquo;</span>
+            </button>
+        </li>
+    </ul>
+</nav>
+<br />
+<br />
+
