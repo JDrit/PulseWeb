@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('pulse.search', ['ngRoute', 'pulse.config'])
+angular.module('pulse.search', ['ngRoute', 'pulse.config', 'ui.bootstrap.tpls'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
@@ -64,6 +64,17 @@ angular.module('pulse.search', ['ngRoute', 'pulse.config'])
         return (typeof thing === "undefined");
     };
 
+    $scope.sourceChange = function(source) {
+        console.log(source);
+        $scope.source = source;
+        $scope.submit();
+    }
+
+    $scope.sourceReset = function() {
+        $scope.source = null;
+        $scope.submit();
+    }
+    
     $scope.updateSearch = function(offset) {
         $scope.start = offset;
         $scope.submit();
@@ -81,9 +92,18 @@ angular.module('pulse.search', ['ngRoute', 'pulse.config'])
 
     $scope.submit = function() {
         var search = $scope.form.search;
+        if ($scope.source != null) {
+            console.log(search.indexOf('='));
+            if (search.indexOf('=') != -1 || search.indexOf('~') != -1) {
+                search = "moduleName = " + $scope.source + " " + search; 
+            } else {
+                search = "moduleName = " + $scope.source + ", " + search; 
+            }
+        }
         $scope.boldWords = "(" + search.replace(/ /g, "|") + ")";
-        console.log("searching...");
-        $http.get(config.apiServer + "api/search?limit=" + $scope.limit + "&offset=" + $scope.start + "&search=" + search).then(
+        console.log("searching with " + search);
+        $http.get(config.apiServer + "api/search?limit=" + $scope.limit + 
+            "&offset=" + $scope.start + "&search=" + search).then(
             function(response) {
                 $scope.results = response.data.results;
                 $scope.numFound = response.data.numFound;
@@ -96,3 +116,4 @@ angular.module('pulse.search', ['ngRoute', 'pulse.config'])
         );
     };
 }]);
+

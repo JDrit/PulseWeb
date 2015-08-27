@@ -14,6 +14,12 @@
 </div><!-- /input-group -->
 <br />
 <div id="searchResults">
+  <tabset justified="true">
+    <tab heading="All" ng-click="sourceReset()"></tab>
+    <tab heading="News" ng-click="sourceChange('news')"></tab>
+    <tab heading="Files" ng-click="sourceChange('files')"></tab>
+  </tabset>
+  <br />
   <div class="searchResult" data-ng-repeat="result in results">
     <div class="well">
         <strong class="pull-left"><a href="{{ result.location }}" ng-bind="getTitle(result)"></a></strong><p class="pull-right">{{ result.timestamp }}</p>
