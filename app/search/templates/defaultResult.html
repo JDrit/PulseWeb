@@ -1,0 +1,19 @@
+<div class="well">
+    <strong class="pull-left"><a href="{{ result.location }}" ng-bind="getTitle(result)"></a></strong><p class="pull-right">{{ result.timestamp }}</p>
+    <br>
+    <span ng-bind-html="boldText(result.data)"></span>
+    <br />
+    <div class="pull-left">
+        <br />
+        <strong ng-show="result['username']">username:</strong> {{ result['username'] }}
+        &nbsp; &nbsp; &nbsp;
+        <strong>source:</strong> {{ result.moduleName}}
+    </div>
+    <div class="pull-right">
+        <a ng-href="{{ getRaw(result) }}"><button class="btn btn-default">get raw</button></a>
+    </div>
+    <br />
+    <br />
+</div>
+
+

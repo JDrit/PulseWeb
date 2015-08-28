@@ -1,0 +1,18 @@
+<div class="well" data-ng-init="getImages()">
+    <strong class="pull-left"><a href="{{ result.location }}" ng-bind="getTitle(result)"></a></strong><p class="pull-right">{{ result.timestamp }}</p>
+    <br>
+    <span ng-bind-html="boldText(result.data)"></span>
+    <br />
+    <div class="pull-left">
+        {{ result['metaData']['count'] }} images
+    </div>
+    <br data-ng-init="getImages(result['moduleId'])"/>
+    <div ng-repeat="image in images[result['moduleId']]" class="image-line">
+      <div class="image-cell">
+	    <img src="{{ image }}"/>
+      </div>
+    </div>
+    <div class="image-clear"></div>
+</div>
+
+

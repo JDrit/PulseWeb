@@ -21,6 +21,27 @@ body {
     margin-bottom: 10px;
 }
 
+.container h1 small {
+    margin-left: 7px;
+}
+
+/* Image bar for gallery results */
+.image-line {
+   width: 100%;
+}
+.image-cell {
+   margin: 10px;
+   float: left;
+}
+.image-cell img {
+    height: 100px;
+    width: 100px;
+    margin-right: 5px;
+}
+.image-clear {
+   clear: both;
+}
+
 // this fixes the a href problem with angularjs + bootstrap
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; } 
 

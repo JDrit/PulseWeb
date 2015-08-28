@@ -18,26 +18,19 @@
     <tab heading="All" ng-click="sourceReset()"></tab>
     <tab heading="News" ng-click="sourceChange('moduleName = news')"></tab>
     <tab heading="Files" ng-click="sourceChange('moduleName = files')"></tab>
-    <tab heading="Images" ng-click="sourceChange('moduleName = images tags = album')"></tab>
+    <tab heading="Gallery" ng-click="sourceChange('moduleName = images tags = album')"></tab>
   </tabset>
   <br />
   <div class="searchResult" data-ng-repeat="result in results">
-    <div class="well">
-        <strong class="pull-left"><a href="{{ result.location }}" ng-bind="getTitle(result)"></a></strong><p class="pull-right">{{ result.timestamp }}</p>
-        <br>
-        <span ng-bind-html="boldText(result.data)"></span>
-        <br />
-        <div class="pull-left">
-            <strong ng-show="result['username']">username:</strong> {{ result['username'] }}
-            &nbsp; &nbsp; &nbsp;
-            <strong>source:</strong> {{ result.moduleName}}
-        </div>
-        <div class="pull-right">
-            <a ng-href="{{ getRaw(result) }}">get raw</a>
-        </div>
-        <br />
-    </div>
- </div>
+      <div ng-switch on="result['moduleName']">
+          <div ng-switch-when="images">
+              <div ng-include="'/app/search/templates/albumResult.html'"></div>
+          </div>
+          <div ng-switch-default>
+              <div ng-include="'/app/search/templates/defaultResult.html'"></div>
+          </div>
+      </div>
+  </div>
 </div>
 <br />
 <br />
