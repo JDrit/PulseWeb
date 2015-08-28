@@ -65,7 +65,6 @@ angular.module('pulse.search', ['ngRoute', 'pulse.config', 'ui.bootstrap.tpls'])
     };
 
     $scope.sourceChange = function(source) {
-        console.log(source);
         $scope.source = source;
         $scope.submit();
     }
@@ -95,9 +94,9 @@ angular.module('pulse.search', ['ngRoute', 'pulse.config', 'ui.bootstrap.tpls'])
         if ($scope.source != null) {
             console.log(search.indexOf('='));
             if (search.indexOf('=') != -1 || search.indexOf('~') != -1) {
-                search = "moduleName = " + $scope.source + " " + search; 
+                search = $scope.source + " " + search; 
             } else {
-                search = "moduleName = " + $scope.source + ", " + search; 
+                search = $scope.source + ", " + search; 
             }
         }
         $scope.boldWords = "(" + search.replace(/ /g, "|") + ")";

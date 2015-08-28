@@ -14,10 +14,11 @@
 </div><!-- /input-group -->
 <br />
 <div id="searchResults">
-  <tabset justified="true">
+  <tabset>
     <tab heading="All" ng-click="sourceReset()"></tab>
-    <tab heading="News" ng-click="sourceChange('news')"></tab>
-    <tab heading="Files" ng-click="sourceChange('files')"></tab>
+    <tab heading="News" ng-click="sourceChange('moduleName = news')"></tab>
+    <tab heading="Files" ng-click="sourceChange('moduleName = files')"></tab>
+    <tab heading="Images" ng-click="sourceChange('moduleName = images tags = album')"></tab>
   </tabset>
   <br />
   <div class="searchResult" data-ng-repeat="result in results">
@@ -27,7 +28,7 @@
         <span ng-bind-html="boldText(result.data)"></span>
         <br />
         <div class="pull-left">
-            <strong>username:</strong> {{ result.username }}
+            <strong ng-show="result['username']">username:</strong> {{ result['username'] }}
             &nbsp; &nbsp; &nbsp;
             <strong>source:</strong> {{ result.moduleName}}
         </div>
@@ -45,8 +46,8 @@
 
 <nav ng-show="numFound != -1" style="text-align:center;">
     <ul class="pagination">
-        <li ng-show="start != 0">
-            <button type="button" class="btn btn-default" aria-label="Previous" ng-click="lastPage()">
+        <li ng-show="start / limit > 5">
+            button type="button" class="btn btn-default" aria-label="Previous" ng-click="lastPage()">
                 <span aria-hidden="true">&laquo;</span>
             </button>
         </li>
