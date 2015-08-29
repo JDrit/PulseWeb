@@ -16,6 +16,7 @@ angular.module('pulse.search', ['ngRoute', 'pulse.config', 'ui.bootstrap.tpls'])
     $scope.start = 0;
     $scope.limit = 20;
     $scope.images = {};
+    $scope.source = "tags -= image";
 
     $scope.boldText = function (text) {
         var htmlText;
@@ -56,11 +57,6 @@ angular.module('pulse.search', ['ngRoute', 'pulse.config', 'ui.bootstrap.tpls'])
         return arr;
     }
 
-    $scope.getRaw = function(result) {
-        return config.apiServer + "api/get_data?moduleName=" + result['moduleName'] +
-            "&moduleId=" + result['moduleId'] + "&timestamp=" + Date.parse(result['timestamp'])
-    }
-
     $scope.isUndefined = function (thing) {
         return (typeof thing === "undefined");
     };
@@ -71,7 +67,7 @@ angular.module('pulse.search', ['ngRoute', 'pulse.config', 'ui.bootstrap.tpls'])
     }
 
     $scope.sourceReset = function() {
-        $scope.source = "tag -= image";
+        $scope.source = "tags -= image";
         $scope.submit();
     }
 
@@ -90,17 +86,29 @@ angular.module('pulse.search', ['ngRoute', 'pulse.config', 'ui.bootstrap.tpls'])
         $scope.submit();
     }
 
+    $scope.getThumbnail = function(result) {
+        return config.apiServer + "api/get_thumbnail?moduleName=" + 
+            result['moduleName'] + "&moduleId=" + result['moduleId'] + 
+            "&timestamp=" + Date.parse(result['timestamp']);
+    }
+    $scope.getRaw = function(result) {
+        return config.apiServer + "api/get_data?moduleName=" + result['moduleName'] +
+            "&moduleId=" + result['moduleId'] + "&timestamp=" + Date.parse(result['timestamp'])
+    }
+
+
     $scope.getImages = function(albumId) {
         if (albumId in $scope.images) {
             return $scope.images[albumId];
         } else {
             var images = [];
-            $http.get(config.apiServer + "api/search?limit=8&search=moduleName=images%20tags=image%20tags=" + albumId).then(function(response) {
+            var url = config.apiServer + "api/search?limit=8&search=moduleName=images%20tags=image%20tags=" + window.encodeURIComponent(albumId);
+            $http.get(url).then(function(response) {
                 var results = response.data['results'];
                 if (results.length > 0) {
                     var urls = [];
                     for (var i = 0 ; i < results.length ; i++) {
-                        urls.push(config.apiServer + "api/get_data?moduleName=images&moduleId=" + results[i]['moduleId'] + "&timestamp=" + Date.parse(results[i]['timestamp']));
+                        urls.push([$scope.getRaw(results[i]), $scope.getThumbnail(results[i])]);
                     }
                     $scope.images[albumId] = urls;
                 }

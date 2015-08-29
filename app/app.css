@@ -39,7 +39,7 @@ body {
     margin-right: 5px;
 }
 .image-clear {
-   clear: both;
+    clear: both;
 }
 
 // this fixes the a href problem with angularjs + bootstrap

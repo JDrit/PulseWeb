@@ -26,8 +26,13 @@
           <div ng-switch-when="images">
               <div ng-include="'/app/search/templates/albumResult.html'"></div>
           </div>
+          <div ng-switch-when="news">
+              <div ng-include="'/app/search/templates/newsResult.html'"></div>
+          </div>
+
           <div ng-switch-default>
-              <div ng-include="'/app/search/templates/defaultResult.html'"></div>
+              <div ng-if="result['format'] == 'pdf'" ng-include="'/app/search/templates/pdfResult.html'"></div>
+              <div ng-if="result['format'] != 'pdf'" ng-include="'/app/search/templates/defaultResult.html'"></div>
           </div>
       </div>
   </div>
