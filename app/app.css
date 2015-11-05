@@ -71,6 +71,7 @@ body {
 
 body > .container {
     padding: 20px 15px 0;
+    background: white;
 }
 
 .container .text-muted {
